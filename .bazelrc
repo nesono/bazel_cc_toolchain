@@ -1,0 +1,9 @@
+# Use our custom-configured c++ toolchain.
+build:clang --crosstool_top=@llvm_toolchain//:llvm_suite
+
+# Use --cpu as a differentiator.
+build:clang --cpu=k8
+
+# Use the default Bazel C++ toolchain to build the tools used during the
+# build.
+build:clang --host_crosstool_top=@bazel_tools//tools/cpp:toolchain
