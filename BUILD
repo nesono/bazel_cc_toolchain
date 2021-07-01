@@ -1,9 +1,3 @@
-sh_binary(
-    name = "llvm_tree",
-    srcs = ["llvm_tree.sh"],
-    data = ["@llvm_toolchain//:all_files"],
-)
-
 cc_library(
     name = "hello_lib",
     srcs = ["hello_lib.cc"],

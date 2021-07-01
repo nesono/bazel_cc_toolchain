@@ -1,5 +1,5 @@
 package(default_visibility = ["//visibility:public"])
-load("@llvm_toolchain//:cc_toolchain_config.bzl", "cc_toolchain_config")
+load("@llvm_toolchain_%{llvm_version}//:cc_toolchain_config.bzl", "cc_toolchain_config")
 
 filegroup(
     name = "all_files",
@@ -36,10 +36,10 @@ filegroup(name = "empty")
 
 cc_toolchain(
     name = "llvm",
-    all_files = "@llvm_toolchain//:all_files",
-    compiler_files = "@llvm_toolchain//:compiler_files",
+    all_files = "@llvm_toolchain_%{llvm_version}//:all_files",
+    compiler_files = "@llvm_toolchain_%{llvm_version}//:compiler_files",
     dwp_files = ":empty",
-    linker_files = "@llvm_toolchain//:linker_files",
+    linker_files = "@llvm_toolchain_%{llvm_version}//:linker_files",
     objcopy_files = ":empty",
     strip_files = ":empty",
     supports_param_files = 0,

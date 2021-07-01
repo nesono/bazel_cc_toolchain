@@ -3,9 +3,23 @@ load(
     "workspace_and_buildfile",
 )
 
-_URL_BASE_TEMPLATE = "https://github.com/llvm/llvm-project/releases/download/llvmorg-{0}/clang+llvm-{0}-x86_64-linux-gnu-ubuntu-20.04.tar.xz"
-_STRIP_PREFIX_TEMPLATE = "clang+llvm-{0}-x86_64-linux-gnu-ubuntu-20.04"
-_SHA256 = {"12.0.0": "a9ff205eb0b73ca7c86afc6432eed1c2d49133bd0d49e47b15be59bbf0dd292e"}
+_DOWNLOAD_SPEC = {
+    "12.0.0": [
+        "https://github.com/llvm/llvm-project/releases/download/llvmorg-12.0.0/clang+llvm-12.0.0-x86_64-linux-gnu-ubuntu-20.04.tar.xz",
+        "a9ff205eb0b73ca7c86afc6432eed1c2d49133bd0d49e47b15be59bbf0dd292e",
+        "clang+llvm-12.0.0-x86_64-linux-gnu-ubuntu-20.04",
+    ],
+    "11.1.0": [
+        "https://github.com/llvm/llvm-project/releases/download/llvmorg-11.1.0/clang+llvm-11.1.0-x86_64-linux-gnu-ubuntu-20.10.tar.xz",
+        "29b07422da4bcea271a88f302e5f84bd34380af137df18e33251b42dd20c26d7",
+        "clang+llvm-11.1.0-x86_64-linux-gnu-ubuntu-20.10",
+    ],
+    "10.0.1": [
+        "https://github.com/llvm/llvm-project/releases/download/llvmorg-10.0.1/clang+llvm-10.0.1-x86_64-linux-gnu-ubuntu-16.04.tar.xz",
+        "48b83ef827ac2c213d5b64f5ad7ed082c8bcb712b46644e0dc5045c6f462c231",
+        "clang+llvm-10.0.1-x86_64-linux-gnu-ubuntu-16.04",
+    ],
+}
 
 # implementation taken from http_archive
 # (https://cs.opensource.google/bazel/bazel/+/master:tools/build_defs/repo/http.bzl)
@@ -13,13 +27,10 @@ def _download_and_extract(ctx):
     if ctx.attr.build_file and ctx.attr.build_file_content:
         fail("Only one of build_file and build_file_content can be provided.")
 
-    url = _URL_BASE_TEMPLATE.format(ctx.attr.llvm_version)
-    strip_prefix = _STRIP_PREFIX_TEMPLATE.format(ctx.attr.llvm_version)
-
     download_info = ctx.download_and_extract(
-        url,
-        sha256 = _SHA256[ctx.attr.llvm_version],
-        stripPrefix = strip_prefix,
+        url = _DOWNLOAD_SPEC[ctx.attr.llvm_version][0],
+        sha256 = _DOWNLOAD_SPEC[ctx.attr.llvm_version][1],
+        stripPrefix = _DOWNLOAD_SPEC[ctx.attr.llvm_version][2],
     )
 
     workspace_and_buildfile(ctx)
