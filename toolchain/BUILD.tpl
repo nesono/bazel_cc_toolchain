@@ -26,13 +26,6 @@ filegroup(
 
 cc_toolchain_config(name = "llvm_config")
 
-cc_toolchain_suite(
-    name = "llvm_suite",
-    toolchains = {
-        "k8": ":llvm",
-    },
-)
-
 filegroup(name = "empty")
 
 cc_toolchain(
@@ -48,26 +41,17 @@ cc_toolchain(
     toolchain_identifier = "llvm",
 )
 
-platform(
-    name = "linux_x86",
-    constraint_values = [
-        "@platforms//os:linux",
-        "@platforms//cpu:x86_64",
-    ],
-)
-
-toolchain_type(
-    name = "linux_x86_toolchain_type",
-    compatible_with = [
-        "@platforms//os:linux",
-        "@platforms//cpu:x86_64",
-    ],
-)
-
 toolchain(
     name = "llvm_toolchain",
-    exec_compatible_with = [":linux_x86"],
-    target_compatible_with = [":linux_x86"],
+    exec_compatible_with = [
+        "@platforms//os:linux",
+        "@platforms//cpu:x86_64",
+    ],
+    target_compatible_with = [
+        "@platforms//os:linux",
+        "@platforms//cpu:x86_64",
+    ],
     toolchain = ":llvm",
-    toolchain_type = ":linux_x86_toolchain_type",
+    toolchain_type = "@bazel_tools//tools/cpp:toolchain_type",
 )
+
