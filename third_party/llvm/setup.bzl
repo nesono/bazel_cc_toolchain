@@ -46,6 +46,7 @@ def _setup_llvm_impl(ctx):
         "%{toolchain_path}": relative_path,
         "%{toolchain_abspath}": repo_path,
         "%{llvm_version}": ctx.attr.llvm_version,
+        "%{llvm_short_version}": ctx.attr.llvm_version.split(".")[0],
     }
     ctx.template(
         "cc_toolchain_config.bzl",

@@ -50,6 +50,7 @@ toolchain(
     target_compatible_with = [
         "@platforms//os:linux",
         "@platforms//cpu:x86_64",
+        "@//toolchain:%{llvm_short_version}",
     ],
     toolchain = ":llvm",
     toolchain_type = "@bazel_tools//tools/cpp:toolchain_type",

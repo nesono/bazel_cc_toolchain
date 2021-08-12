@@ -6,7 +6,7 @@ constraint_setting(
 
 constraint_value(
     name = "llvm",
-    constraint_setting = "compiler",
+    constraint_setting = ":compiler",
 )
 
 constraint_setting(
@@ -15,17 +15,17 @@ constraint_setting(
 
 constraint_value(
     name = "10",
-    constraint_setting = "compiler_version",
+    constraint_setting = ":compiler_version",
 )
 
 constraint_value(
     name = "11",
-    constraint_setting = "compiler_version",
+    constraint_setting = ":compiler_version",
 )
 
 constraint_value(
     name = "12",
-    constraint_setting = "compiler_version",
+    constraint_setting = ":compiler_version",
 )
 
 platform(
